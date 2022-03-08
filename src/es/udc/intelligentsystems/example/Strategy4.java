@@ -45,7 +45,7 @@ public class Strategy4 implements SearchStrategy {
                 State sc = p.result(currentState, acc);
                 System.out.println((i++) + " - RESULT(" + currentState + "," + acc + ")=" + sc);
                 if (!explored.contains(sc)) {
-                    exploredNodes.add(new Node(acc, exploredNodes.peek(), currentState));
+                    exploredNodes.push(new Node(acc, exploredNodes.peek(), currentState));
                     currentState = sc;
                     System.out.println((i++) + " - " + sc + " NOT explored");
                     explored.add(currentState);

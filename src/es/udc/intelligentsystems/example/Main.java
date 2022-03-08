@@ -2,6 +2,7 @@ package es.udc.intelligentsystems.example;
 
 import es.udc.intelligentsystems.SearchStrategy;
 import es.udc.intelligentsystems.SearchProblem;
+import es.udc.intelligentsystems.example.strategy.GraphSearchStrategy;
 
 import java.util.Arrays;
 
@@ -12,7 +13,7 @@ public class Main {
                                                                                                     VacuumCleanerProblem.VacuumCleanerState.DirtPosition.BOTH);
         SearchProblem aspiradora = new VacuumCleanerProblem(initialState);
 
-        SearchStrategy buscador = new Strategy4();
+        SearchStrategy buscador = new GraphSearchStrategy();
         System.out.println(Arrays.toString(buscador.solve(aspiradora)));
     }
 }
