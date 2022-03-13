@@ -1,4 +1,4 @@
-package es.udc.intelligentsystems.example;
+package es.udc.intelligentsystems.example.problems;
 
 import es.udc.intelligentsystems.Action;
 import es.udc.intelligentsystems.State;
