@@ -74,7 +74,6 @@ public class MagicSquareProblem extends SearchProblem {
                 case LEFT -> x--;
                 case RIGHT -> x++;
             }
-            // TODO
             vcSt.board.getBoard()[x][y] = vcSt.board.getNextNewValue();
             return new MagicSquareState(x, y, vcSt.board);
         }
