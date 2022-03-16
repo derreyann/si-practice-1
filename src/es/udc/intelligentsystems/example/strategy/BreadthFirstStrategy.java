@@ -16,6 +16,7 @@ public class BreadthFirstStrategy implements SearchStrategy {
     @Override
     public Node[] solve(SearchProblem p) throws Exception {
         Node initialNode = new Node(p.getInitialState());
+        int createdNodes = 1;
 
         if (p.isGoal(p.getInitialState())) return reconstruct_sol(initialNode);
 
@@ -27,7 +28,6 @@ public class BreadthFirstStrategy implements SearchStrategy {
         f.add(initialNode);
 
         int i = 1;
-
 
         // check if frontier is empty
         while (!f.isEmpty()) {
@@ -62,6 +62,7 @@ public class BreadthFirstStrategy implements SearchStrategy {
                     System.out.println((i++) + " - " + n.getState() + " already explored");
                 }
             }
+            System.out.println("Created Node after each iteration: " + createdNodes);
         }
         // if frontier is empty throw solution exception
         throw new IllegalStateException("No solution found");

@@ -25,6 +25,7 @@ public class DepthFirstStrategy implements SearchStrategy {
         f.push(initialNode);
 
         int i = 1;
+        int createdNodes = 1;
         // check if frontier is empty
         while (!f.isEmpty()) {
             // last element of frontier
@@ -38,9 +39,11 @@ public class DepthFirstStrategy implements SearchStrategy {
             // add this state to explored list
             explored.add(state);
             // get all available checks
-            List<Node> availableActions = successors(node,p);
+            List<Node> availableActions = successors(node, p);
 
-            for (Node n : availableActions){
+            for (Node n : availableActions) {
+                // created node amount
+                createdNodes++;
                 // state not already explored
                 if (!explored.contains(n.getState())) {
                     // state not already in frontire
@@ -55,6 +58,7 @@ public class DepthFirstStrategy implements SearchStrategy {
                     System.out.println((i++) + " - " + n.getState() + " already explored");
                 }
             }
+            System.out.println("Created Node after each iteration: " + createdNodes);
         }
         // if frontier is empty throw solution exception
         throw new IllegalStateException("No solution found");
