@@ -6,6 +6,7 @@ import es.udc.intelligentsystems.example.entity.Board;
 import es.udc.intelligentsystems.example.problems.MagicSquareProblem;
 import es.udc.intelligentsystems.example.problems.VacuumCleanerProblem;
 import es.udc.intelligentsystems.example.strategy.BreadthFirstStrategy;
+import es.udc.intelligentsystems.example.strategy.DepthFirstStrategy;
 import es.udc.intelligentsystems.example.strategy.GraphSearchStrategy;
 
 import java.util.Arrays;
@@ -17,18 +18,18 @@ public class Main {
 //                                                                                                    VacuumCleanerProblem.VacuumCleanerState.DirtPosition.BOTH);
 //        SearchProblem aspiradora = new VacuumCleanerProblem(initialState);
 
-//        int[][] ints = {{4, 9, 2}, {3, 5, 0}, {0, 1, 0}};
+        int[][] ints = {{4, 9, 2}, {3, 5, 0}, {0, 1, 0}};
 //        int[][] ints = {{4, 9, 2}, {3, 5, 6}, {0, 1, 0}};
 //        int[][] ints = {{4, 9, 2}, {3, 5, 7}, {0, 1, 0}};
 //        int[][] ints = {{4, 9, 2}, {3, 5, 8}, {0, 1, 0}};
-        int[][] ints = {{2, 0, 0}, {0, 0, 0}, {0, 0, 0}};
+//        int[][] ints = {{2, 0, 0}, {0, 0, 0}, {0, 0, 0}};
 //        int[][] ints = {{2, 0, 0}, {0, 0, 0}, {0, 0, 0}};
         MagicSquareProblem.MagicSquareState initialState = new MagicSquareProblem.MagicSquareState(
                 new Board(ints)
         );
         SearchProblem aspiradora = new MagicSquareProblem(initialState);
 
-        SearchStrategy buscador = new GraphSearchStrategy();
+        SearchStrategy buscador = new DepthFirstStrategy();
         System.out.println(Arrays.toString(buscador.solve(aspiradora)));
     }
 }

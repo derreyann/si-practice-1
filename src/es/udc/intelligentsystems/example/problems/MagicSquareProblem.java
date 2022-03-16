@@ -75,19 +75,17 @@ public class MagicSquareProblem extends SearchProblem {
             if (!isApplicable(vcSt)) {
                 throw new IllegalStateException("Action is not applicable " + vcSt + "x= " + x + "y=" + y);
             }
-            vcSt.board.getBoard()[y][x] = number;
-            Board board = new Board(vcSt.board.getBoard());
 
-//            int[][] newBoard = new int[vcSt.board.getBoard().length][vcSt.board.getBoard().length];
-//            newBoard[y][x] = number;
-//            for (int i = 0; i < newBoard.length; i++) {
-//                for (int j = 0; j < newBoard.length; j++) {
-//                    if (vcSt.board.getBoard()[i][j] != 0) {
-//                        newBoard[i][j] = vcSt.board.getBoard()[i][j];
-//                    }
-//                }
-//            }
-//            Board board = new Board(newBoard);
+            int[][] newBoard = new int[vcSt.board.getBoard().length][vcSt.board.getBoard().length];
+            newBoard[y][x] = number;
+            for (int i = 0; i < newBoard.length; i++) {
+                for (int j = 0; j < newBoard.length; j++) {
+                    if (vcSt.board.getBoard()[i][j] != 0) {
+                        newBoard[i][j] = vcSt.board.getBoard()[i][j];
+                    }
+                }
+            }
+            Board board = new Board(newBoard);
             return new MagicSquareState(board);
         }
     }

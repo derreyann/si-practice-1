@@ -9,19 +9,9 @@ import es.udc.intelligentsystems.example.entity.Node;
 import java.util.ArrayList;
 import java.util.Stack;
 
+import static es.udc.intelligentsystems.example.utils.SearchStrategyHelper.reconstruct_sol;
+
 public class GraphSearchStrategy implements SearchStrategy {
-
-    public Node[] reconstruct_sol(Node solutionNode) {
-
-        ArrayList<Node> nodeList = new ArrayList<>();
-
-        while (solutionNode.getParent() != null) {
-            nodeList.add(solutionNode.getParent());
-            solutionNode = solutionNode.getParent();
-        }
-
-        return nodeList.toArray(new Node[0]);
-    }
 
     @Override
     public Node[] solve(SearchProblem p) throws Exception {
