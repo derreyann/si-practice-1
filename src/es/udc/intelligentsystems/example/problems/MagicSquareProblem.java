@@ -5,24 +5,21 @@ import es.udc.intelligentsystems.SearchProblem;
 import es.udc.intelligentsystems.State;
 import es.udc.intelligentsystems.example.entity.Board;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class MagicSquareProblem extends SearchProblem {
     public static class MagicSquareState extends State {
 
-        int currentX;
-        int currentY;
         Board board;
 
-        public MagicSquareState(int currentX, int currentY, Board board) {
-            this.currentX = currentX;
-            this.currentY = currentY;
+        public MagicSquareState(Board board) {
             this.board = board;
         }
 
         @Override
         public String toString() {
-            return "{ " + currentX + " " + currentY + " " + Arrays.deepToString(board.getBoard()) + " }";
+            return "{ " + Arrays.deepToString(board.getBoard()) + " }";
 
         }
 
@@ -33,49 +30,65 @@ public class MagicSquareProblem extends SearchProblem {
 
             MagicSquareProblem.MagicSquareState that = (MagicSquareProblem.MagicSquareState) obj;
 
-            return (currentX == that.currentX) && (currentY == that.currentY);
+            return (board == that.board);
         }
 
         @Override
         public int hashCode() {
-            int result = currentY;
-            result = 31 * result + currentX;
-            return result;
+            return board.hashCode() ;
         }
     }
 
     public static class MagicSquareAction extends Action {
-        public enum Type {UP, DOWN, LEFT, RIGHT}
 
-        private Type type;
+        private final int x;
+        private final int y;
 
-        public MagicSquareAction(Type type) {
-            this.type = type;
+        private final int number;
+
+        public MagicSquareAction(int x, int y, int number) {
+            this.x = x;
+            this.y = y;
+            this.number = number;
         }
 
         @Override
         public String toString() {
-            return type.name();
+            return "MagicSquareAction{" + "x=" + x + ", y=" + y + ", number=" + number + '}';
         }
 
         @Override
         public boolean isApplicable(State st) {
-            return true;
+            MagicSquareProblem.MagicSquareState vcSt = (MagicSquareProblem.MagicSquareState) st;
+            try {
+                if (vcSt.board.getBoard()[y][x] == 0)
+                    return true;
+            } catch (IndexOutOfBoundsException x) {
+                return false;
+            }
+            return false;
         }
 
         @Override
         public State applyTo(State st) {
             MagicSquareProblem.MagicSquareState vcSt = (MagicSquareProblem.MagicSquareState) st;
-            int x = vcSt.currentX;
-            int y = vcSt.currentY;
-            switch (type) {
-                case UP -> y--;
-                case DOWN -> y++;
-                case LEFT -> x--;
-                case RIGHT -> x++;
+            if (!isApplicable(vcSt)) {
+                throw new IllegalStateException("Action is not applicable " + vcSt + "x= " + x + "y=" + y);
             }
-            vcSt.board.getBoard()[x][y] = vcSt.board.getNextNewValue();
-            return new MagicSquareState(x, y, vcSt.board);
+            vcSt.board.getBoard()[y][x] = number;
+            Board board = new Board(vcSt.board.getBoard());
+
+//            int[][] newBoard = new int[vcSt.board.getBoard().length][vcSt.board.getBoard().length];
+//            newBoard[y][x] = number;
+//            for (int i = 0; i < newBoard.length; i++) {
+//                for (int j = 0; j < newBoard.length; j++) {
+//                    if (vcSt.board.getBoard()[i][j] != 0) {
+//                        newBoard[i][j] = vcSt.board.getBoard()[i][j];
+//                    }
+//                }
+//            }
+//            Board board = new Board(newBoard);
+            return new MagicSquareState(board);
         }
     }
 
@@ -86,90 +99,53 @@ public class MagicSquareProblem extends SearchProblem {
 
     @Override
     public boolean isGoal(State st) {
-        MagicSquareState state = (MagicSquareState) st;
-        for (int i = 0; i < ((MagicSquareState) st).board.getBoard().length; i++) {
-            for (int j = 0; j < ((MagicSquareState) st).board.getBoard().length; j++) {
-                if (state.board.getBoard()[i][j] == 0) {
-                    return false;
-                }
-            }
-        }
-
-        return true;
+        return isMagicSquare(((MagicSquareState) st).board.getBoard());
     }
 
+    boolean isMagicSquare(int mat[][]) {
+
+        // sumd1 and sumd2 are the sum of the two diagonals
+        int sumd1 = 0, sumd2 = 0;
+        for (int i = 0; i < mat.length; i++) {
+            // (i, i) is the diagonal from top-left -> bottom-right
+            // (i, N - i - 1) is the diagonal from top-right -> bottom-left
+            sumd1 += mat[i][i];
+            sumd2 += mat[i][mat.length - 1 - i];
+        }
+        // if the two diagonal sums are unequal then it is not a magic square
+        if (sumd1 != sumd2)
+            return false;
+
+        // calculating sums of Rows and columns and checking if they are equal to each other,
+        // as well as equal to diagonal sum or not
+        for (int i = 0; i < mat.length; i++) {
+            int rowSum = 0, colSum = 0;
+            for (int j = 0; j < mat.length; j++) {
+                rowSum += mat[i][j];
+                colSum += mat[j][i];
+            }
+            if (rowSum != colSum || colSum != sumd1)
+                return false;
+        }
+        return true;
+    }
 
     @Override
     public Action[] actions(State st) {
         MagicSquareProblem.MagicSquareState vcSt = (MagicSquareProblem.MagicSquareState) st;
         int[][] board = vcSt.board.getBoard();
-        int lastElemIndex = board.length - 1;
-        Action[] actionList;
-        //first row checks
-        if (vcSt.currentY == 0) {
-            // first row firs element
-            if (vcSt.currentX == 0) {
-                actionList = new Action[]{
-                        new MagicSquareAction(MagicSquareAction.Type.DOWN),
-                        new MagicSquareAction(MagicSquareAction.Type.RIGHT)
-                };
-
-                // first row last element
-            } else if (vcSt.currentX == lastElemIndex) {
-                actionList = new Action[]{
-                        new MagicSquareAction(MagicSquareAction.Type.DOWN),
-                        new MagicSquareAction(MagicSquareAction.Type.LEFT)
-                };
-                // first row any other option
-            } else {
-                actionList = new Action[]{
-                        new MagicSquareAction(MagicSquareAction.Type.DOWN),
-                        new MagicSquareAction(MagicSquareAction.Type.RIGHT),
-                        new MagicSquareAction(MagicSquareAction.Type.LEFT)
-                };
+        ArrayList<Action> actions = new ArrayList<>();
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board.length; j++) {
+                if (board[i][j] == 0) {
+                    for (int available : vcSt.board.getPossibleValues()) {
+                        actions.add(new MagicSquareAction(j, i, available));
+                    }
+                }
             }
-            // last row check
-        } else if (vcSt.currentY == lastElemIndex) {
-            if (vcSt.currentX == 0) {
-                actionList = new Action[]{
-                        new MagicSquareAction(MagicSquareAction.Type.UP),
-                        new MagicSquareAction(MagicSquareAction.Type.RIGHT)
-                };
-            } else if (vcSt.currentX == lastElemIndex) {
-                actionList = new Action[]{
-                        new MagicSquareAction(MagicSquareAction.Type.UP),
-                        new MagicSquareAction(MagicSquareAction.Type.LEFT)
-                };
-            } else {
-                actionList = new Action[]{
-                        new MagicSquareAction(MagicSquareAction.Type.UP),
-                        new MagicSquareAction(MagicSquareAction.Type.RIGHT),
-                        new MagicSquareAction(MagicSquareAction.Type.LEFT)
-                };
-            }
-            // left border
-        } else if (vcSt.currentX == 0) {
-            actionList = new Action[]{
-                    new MagicSquareAction(MagicSquareAction.Type.UP),
-                    new MagicSquareAction(MagicSquareAction.Type.RIGHT),
-                    new MagicSquareAction(MagicSquareAction.Type.DOWN)
-            };
-            // right border
-        } else if (vcSt.currentX == lastElemIndex) {
-            actionList = new Action[]{
-                    new MagicSquareAction(MagicSquareAction.Type.UP),
-                    new MagicSquareAction(MagicSquareAction.Type.LEFT),
-                    new MagicSquareAction(MagicSquareAction.Type.DOWN)
-            };
-            // any other situation
-        } else {
-            actionList = new Action[]{
-                    new MagicSquareAction(MagicSquareAction.Type.UP),
-                    new MagicSquareAction(MagicSquareAction.Type.LEFT),
-                    new MagicSquareAction(MagicSquareAction.Type.DOWN),
-                    new MagicSquareAction(MagicSquareAction.Type.RIGHT)
-            };
         }
-        return actionList;
+
+        return actions.toArray(new Action[0]);
     }
 }
+

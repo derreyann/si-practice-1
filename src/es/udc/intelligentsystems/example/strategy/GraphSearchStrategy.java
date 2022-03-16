@@ -48,7 +48,6 @@ public class GraphSearchStrategy implements SearchStrategy {
                         }
                         System.out.println((i++) + " - " + sc + " NOT explored");
                         System.out.println((i++) + " - Current state changed to " + sc);
-                        break;
                     } else {
                         System.out.println((i++) + " - " + sc + " already explored");
                     }
