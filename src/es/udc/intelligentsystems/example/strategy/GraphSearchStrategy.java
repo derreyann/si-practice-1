@@ -15,6 +15,9 @@ public class GraphSearchStrategy implements SearchStrategy {
 
     @Override
     public Node[] solve(SearchProblem p) throws Exception {
+        long created = 1;
+        long expanded = 0;
+
         ArrayList<State> explored = new ArrayList<State>();
         Stack<Node> f = new Stack<>();
         explored.add(p.getInitialState());
@@ -24,10 +27,12 @@ public class GraphSearchStrategy implements SearchStrategy {
         System.out.println((i++) + " - Starting search at " + p.getInitialState());
         while (!f.empty()) {
             Node node = f.pop();
+            expanded++;
             if (!p.isGoal(node.getState())) {
                 explored.add(node.getState());
                 System.out.println((i++) + " - " + node.getState() + " is not a goal");
                 Action[] availableActions = p.actions(node.getState());
+                created = availableActions.length;
                 for (Action acc : availableActions) {
                     State sc = p.result(node.getState(), acc);
                     System.out.println((i++) + " - RESULT(" + node.getState() + "," + acc + ")=" + sc);
@@ -44,6 +49,8 @@ public class GraphSearchStrategy implements SearchStrategy {
                 }
             } else {
                 System.out.println((i++) + " - END - " + node.getState());
+                System.out.println("\nNumber of nodes created: " + created);
+                System.out.println("\nNumber of nodes expanded: " + expanded);
                 return reconstruct_sol(node);
             }
         }

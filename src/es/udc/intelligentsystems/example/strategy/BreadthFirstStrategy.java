@@ -16,7 +16,8 @@ public class BreadthFirstStrategy implements SearchStrategy {
     @Override
     public Node[] solve(SearchProblem p) throws Exception {
         Node initialNode = new Node(p.getInitialState());
-        int createdNodes = 1;
+        long created = 1;
+        long expanded = 0;
 
         if (p.isGoal(p.getInitialState())) return reconstruct_sol(initialNode);
 
@@ -31,6 +32,7 @@ public class BreadthFirstStrategy implements SearchStrategy {
 
         // check if frontier is empty
         while (!f.isEmpty()) {
+            expanded++;
             // last element of frontier
             Node node = f.poll();
             // last elements state
@@ -38,11 +40,14 @@ public class BreadthFirstStrategy implements SearchStrategy {
             // add this state to explored list
             explored.add(state);
             if (p.isGoal(state)) {
+                System.out.println("\nNumber of nodes created: " + created);
+                System.out.println("\nNumber of nodes expanded: " + expanded);
                 return reconstruct_sol(node);
             }
             // get all available checks
-            List<Node> availableActions = successors(node,p);
-            for (Node n : availableActions){
+            List<Node> availableActions = successors(node, p);
+            created += availableActions.size();
+            for (Node n : availableActions) {
                 // goal check
                 if (p.isGoal(n.getState())) {
                     return reconstruct_sol(node);
@@ -62,8 +67,10 @@ public class BreadthFirstStrategy implements SearchStrategy {
                     System.out.println((i++) + " - " + n.getState() + " already explored");
                 }
             }
-            System.out.println("Created Node after each iteration: " + createdNodes);
+            System.out.println("Created Node after each iteration: " + created);
         }
+        System.out.println("\nNumber of nodes created: " + created);
+        System.out.println("\nNumber of nodes expanded: " + expanded);
         // if frontier is empty throw solution exception
         throw new IllegalStateException("No solution found");
     }

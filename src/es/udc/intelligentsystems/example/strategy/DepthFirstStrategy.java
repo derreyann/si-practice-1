@@ -16,6 +16,8 @@ public class DepthFirstStrategy implements SearchStrategy {
     @Override
     public Node[] solve(SearchProblem p) throws Exception {
         Node initialNode = new Node(p.getInitialState());
+        long created = 1;
+        long expanded = 0;
 
         // empty explored list
         ArrayList<State> explored = new ArrayList<>();
@@ -28,19 +30,22 @@ public class DepthFirstStrategy implements SearchStrategy {
         int createdNodes = 1;
         // check if frontier is empty
         while (!f.isEmpty()) {
+            expanded++;
             // last element of frontier
             Node node = f.peek();
             // last elements state
             State state = node.getState();
             // goal check
             if (p.isGoal(node.getState())) {
+                System.out.println("\nNumber of nodes created: " + created);
+                System.out.println("\nNumber of nodes expanded: " + expanded);
                 return reconstruct_sol(node);
             }
             // add this state to explored list
             explored.add(state);
             // get all available checks
             List<Node> availableActions = successors(node, p);
-
+            created += availableActions.size();
             for (Node n : availableActions) {
                 // created node amount
                 createdNodes++;
@@ -60,6 +65,8 @@ public class DepthFirstStrategy implements SearchStrategy {
             }
             System.out.println("Created Node after each iteration: " + createdNodes);
         }
+        System.out.println("\nNumber of nodes created: " + created);
+        System.out.println("\nNumber of nodes expanded: " + expanded);
         // if frontier is empty throw solution exception
         throw new IllegalStateException("No solution found");
     }
