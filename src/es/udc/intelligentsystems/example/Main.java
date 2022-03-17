@@ -5,6 +5,7 @@ import es.udc.intelligentsystems.SearchProblem;
 import es.udc.intelligentsystems.example.entity.Board;
 import es.udc.intelligentsystems.example.problems.MagicSquareProblem;
 import es.udc.intelligentsystems.example.problems.VacuumCleanerProblem;
+import es.udc.intelligentsystems.example.strategy.BestFirstStrategy;
 import es.udc.intelligentsystems.example.strategy.BreadthFirstStrategy;
 import es.udc.intelligentsystems.example.strategy.DepthFirstStrategy;
 import es.udc.intelligentsystems.example.strategy.GraphSearchStrategy;
@@ -29,7 +30,7 @@ public class Main {
         );
         SearchProblem aspiradora = new MagicSquareProblem(initialState);
 
-        SearchStrategy buscador = new DepthFirstStrategy();
+        SearchStrategy buscador = new BestFirstStrategy();
         System.out.println(Arrays.toString(buscador.solve(aspiradora)));
     }
 }
