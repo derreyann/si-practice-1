@@ -9,6 +9,7 @@ public class Node {
     private Action action;
     private Node parent;
     private State state;
+    private int depth=0;
 
     public Node() {
 
@@ -18,13 +19,18 @@ public class Node {
         this.action = action;
         this.parent = parent;
         this.state = state;
+        if(parent != null) depth = parent.getDepth()+1;
+
     }
 
     public Node(State state) {
         this.action = null;
         this.parent = null;
         this.state = state;
+        if(parent != null) depth = parent.getDepth()+1;
     }
+
+    public int getDepth() { return depth; }
 
     public Action getAction() {
         return action;
