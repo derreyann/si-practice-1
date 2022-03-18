@@ -1,8 +1,8 @@
-package es.udc.intelligentsystems.example.heuristics;
+package es.udc.intelligentsystems.giorgiodishvili_yanndere.heuristics;
 
 import es.udc.intelligentsystems.Heuristic;
 import es.udc.intelligentsystems.State;
-import es.udc.intelligentsystems.example.problems.MagicSquareProblem;
+import es.udc.intelligentsystems.giorgiodishvili_yanndere.problems.MagicSquareProblem;
 
 public class MagicSquareHeuristics extends Heuristic {
     @Override

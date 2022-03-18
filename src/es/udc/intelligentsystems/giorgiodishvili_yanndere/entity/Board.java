@@ -1,4 +1,4 @@
-package es.udc.intelligentsystems.example.entity;
+package es.udc.intelligentsystems.giorgiodishvili_yanndere.entity;
 
 import java.util.Stack;
 

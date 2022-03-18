@@ -1,9 +1,9 @@
-package es.udc.intelligentsystems.example.utils;
+package es.udc.intelligentsystems.giorgiodishvili_yanndere.utils;
 
 import es.udc.intelligentsystems.Action;
 import es.udc.intelligentsystems.Heuristic;
 import es.udc.intelligentsystems.SearchProblem;
-import es.udc.intelligentsystems.example.entity.Node;
+import es.udc.intelligentsystems.giorgiodishvili_yanndere.entity.Node;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package es.udc.intelligentsystems.example.problems;
+package es.udc.intelligentsystems.giorgiodishvili_yanndere.problems;
 
 import es.udc.intelligentsystems.Action;
 import es.udc.intelligentsystems.State;

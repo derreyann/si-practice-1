@@ -1,6 +1,6 @@
 package es.udc.intelligentsystems;
 
-import es.udc.intelligentsystems.example.entity.Node;
+import es.udc.intelligentsystems.giorgiodishvili_yanndere.entity.Node;
 
 public interface SearchStrategy {
     /**

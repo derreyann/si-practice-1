@@ -1,17 +1,17 @@
-package es.udc.intelligentsystems.example.strategy;
+package es.udc.intelligentsystems.giorgiodishvili_yanndere.strategy;
 
 import es.udc.intelligentsystems.Heuristic;
 import es.udc.intelligentsystems.InformedSearchStrategy;
 import es.udc.intelligentsystems.SearchProblem;
 import es.udc.intelligentsystems.State;
-import es.udc.intelligentsystems.example.entity.Node;
+import es.udc.intelligentsystems.giorgiodishvili_yanndere.entity.Node;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.PriorityQueue;
 
-import static es.udc.intelligentsystems.example.utils.SearchStrategyHelper.successors;
+import static es.udc.intelligentsystems.giorgiodishvili_yanndere.utils.SearchStrategyHelper.successors;
 
 public class BestFirstStrategy implements InformedSearchStrategy {
 

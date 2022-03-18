@@ -1,9 +1,9 @@
-package es.udc.intelligentsystems.example.problems;
+package es.udc.intelligentsystems.giorgiodishvili_yanndere.problems;
 
 import es.udc.intelligentsystems.Action;
 import es.udc.intelligentsystems.SearchProblem;
 import es.udc.intelligentsystems.State;
-import es.udc.intelligentsystems.example.entity.Board;
+import es.udc.intelligentsystems.giorgiodishvili_yanndere.entity.Board;
 
 import java.util.ArrayList;
 import java.util.Arrays;

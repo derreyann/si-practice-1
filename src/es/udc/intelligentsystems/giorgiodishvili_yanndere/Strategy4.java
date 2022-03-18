@@ -1,7 +1,7 @@
-package es.udc.intelligentsystems.example;
+package es.udc.intelligentsystems.giorgiodishvili_yanndere;
 
 import es.udc.intelligentsystems.*;
-import es.udc.intelligentsystems.example.entity.Node;
+import es.udc.intelligentsystems.giorgiodishvili_yanndere.entity.Node;
 
 import java.util.*;
 

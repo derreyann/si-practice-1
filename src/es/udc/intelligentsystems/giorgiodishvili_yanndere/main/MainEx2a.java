@@ -1,11 +1,10 @@
-package es.udc.intelligentsystems.example.main;
+package es.udc.intelligentsystems.giorgiodishvili_yanndere.main;
 
 import es.udc.intelligentsystems.SearchProblem;
 import es.udc.intelligentsystems.SearchStrategy;
-import es.udc.intelligentsystems.example.entity.Board;
-import es.udc.intelligentsystems.example.problems.MagicSquareProblem;
-import es.udc.intelligentsystems.example.strategy.BreadthFirstStrategy;
-import es.udc.intelligentsystems.example.strategy.GraphSearchStrategy;
+import es.udc.intelligentsystems.giorgiodishvili_yanndere.entity.Board;
+import es.udc.intelligentsystems.giorgiodishvili_yanndere.problems.MagicSquareProblem;
+import es.udc.intelligentsystems.giorgiodishvili_yanndere.strategy.BreadthFirstStrategy;
 
 import java.util.Arrays;
 

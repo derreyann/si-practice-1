@@ -1,15 +1,15 @@
-package es.udc.intelligentsystems.example.main;
+package es.udc.intelligentsystems.giorgiodishvili_yanndere;
 
+import es.udc.intelligentsystems.Heuristic;
+import es.udc.intelligentsystems.InformedSearchStrategy;
 import es.udc.intelligentsystems.SearchProblem;
-import es.udc.intelligentsystems.SearchStrategy;
-import es.udc.intelligentsystems.example.entity.Board;
-import es.udc.intelligentsystems.example.problems.MagicSquareProblem;
-import es.udc.intelligentsystems.example.strategy.DepthFirstStrategy;
-import es.udc.intelligentsystems.example.strategy.GraphSearchStrategy;
+import es.udc.intelligentsystems.giorgiodishvili_yanndere.entity.Board;
+import es.udc.intelligentsystems.giorgiodishvili_yanndere.heuristics.MagicSquareHeuristics;
+import es.udc.intelligentsystems.giorgiodishvili_yanndere.problems.MagicSquareProblem;
+import es.udc.intelligentsystems.giorgiodishvili_yanndere.strategy.BestFirstStrategy;
 
-import java.util.Arrays;
+public class Main {
 
-public class MainEx1 {
     public static void main(String[] args) throws Exception {
 //        VacuumCleanerProblem.VacuumCleanerState initialState = new VacuumCleanerProblem.VacuumCleanerState(VacuumCleanerProblem.VacuumCleanerState.RobotPosition.LEFT,
 //                                                                                                    VacuumCleanerProblem.VacuumCleanerState.DirtPosition.BOTH);
@@ -25,8 +25,12 @@ public class MainEx1 {
                 new Board(ints)
         );
         SearchProblem aspiradora = new MagicSquareProblem(initialState);
-
-        SearchStrategy buscador = new GraphSearchStrategy();
-        System.out.println(Arrays.toString(buscador.solve(aspiradora)));
+        Heuristic h = new MagicSquareHeuristics();
+        InformedSearchStrategy buscador = new BestFirstStrategy();
+        System.out.println(buscador.solve(aspiradora, h));
     }
 }
+
+//[[2, 9, 8], [7, 6, 5], [4, 3, 1]]
+//[[2, 9, 4], [7, 5, 3], [6, 1, 8]]
+//[[2, 1, 3], [4, 5, 6], [7, 8, 9]]

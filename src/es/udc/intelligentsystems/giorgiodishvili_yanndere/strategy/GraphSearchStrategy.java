@@ -1,15 +1,15 @@
-package es.udc.intelligentsystems.example.strategy;
+package es.udc.intelligentsystems.giorgiodishvili_yanndere.strategy;
 
 import es.udc.intelligentsystems.Action;
 import es.udc.intelligentsystems.SearchProblem;
 import es.udc.intelligentsystems.SearchStrategy;
 import es.udc.intelligentsystems.State;
-import es.udc.intelligentsystems.example.entity.Node;
+import es.udc.intelligentsystems.giorgiodishvili_yanndere.entity.Node;
 
 import java.util.ArrayList;
 import java.util.Stack;
 
-import static es.udc.intelligentsystems.example.utils.SearchStrategyHelper.reconstruct_sol;
+import static es.udc.intelligentsystems.giorgiodishvili_yanndere.utils.SearchStrategyHelper.reconstruct_sol;
 
 public class GraphSearchStrategy implements SearchStrategy {
 
