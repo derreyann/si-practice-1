@@ -20,13 +20,6 @@ public class Node implements Comparable<Node> {
         this.f = cost;
         if (parent != null) depth = parent.getDepth() + 1;
     }
-public int getF() {
-        return f;
-    }
-
-    public void setF(int f) {
-        this.f = f;
-    }
 
     public Node(Action action, Node parent, State state) {
         this.action = action;
@@ -81,6 +74,14 @@ public int getF() {
         this.cost = cost;
     }
 
+    public int getF() {
+        return f;
+    }
+
+    public void setF(int f) {
+        this.f = f;
+    }
+
     @Override
     public String toString() {
         return "\n" +
@@ -92,6 +93,6 @@ public int getF() {
 
     @Override
     public int compareTo(Node o) {
-        return this.getCost() - o.getCost();
+        return this.f - o.f;
     }
 }

@@ -49,8 +49,8 @@ public class BestFirstStrategy implements InformedSearchStrategy {
             for (Node n : sons) {
                 State sc = n.getState();
                 n.setCost(searching.getCost() + 1);
-                n.setCost((int) (n.getCost() + h.evaluate(n.getState())));
-                System.out.println(" - RESULT(" + currentState + "," + n.getAction() + ")=" + sc);
+                n.setF((int) (n.getCost() + h.evaluate(n.getState())));
+                System.out.println(" - RESULT(" + sc + "," + n.getAction() + ")=" + sc);
                 if (!explored.contains(sc)) {
                     boolean b = frontier.stream().noneMatch(c -> c.getState() == sc);
                     if (!b) {
@@ -65,9 +65,8 @@ public class BestFirstStrategy implements InformedSearchStrategy {
                         }
                     }
                 }
-                System.out.println("" + searching.getState() + "  " + searching.getF());
+                System.out.println("" + n.getState() + "  " + n.getF());
             }
-            explored.add(searching.getState());
         }
         throw new IllegalStateException("No Solution Found");
     }

@@ -7,48 +7,18 @@ import es.udc.intelligentsystems.example.problems.MagicSquareProblem;
 public class MagicSquareHeuristics extends Heuristic {
     @Override
     public float evaluate(State e) {
-        MagicSquareProblem.MagicSquareState stat = (MagicSquareProblem.MagicSquareState) e;
-        long result = stat.getBoard().getSum();
-        float h = 0;
-        int amount = 0;
-        int x = 0;
-        //Fila
-        for (int i = 0; i < stat.n * stat.n; i += stat.n) {
-            for (int j = 0; j < stat.n; j++) {
-                amount = amount + stat.a[j + i];
-            }
-            if (result != amount) {
-                h += 1;
-            }
-            amount = 0;
+
+        int row, distance=0, diagonal=0;
+        int[][] matrix = ((MagicSquareProblem.MagicSquareState) e).getBoard().getBoard();
+        int goal=(matrix.length * ((matrix.length * matrix.length) + 1)) / 2;
+
+        for(int i=0; i<matrix.length; i++) {
+            row = 0;
+            for(int j : matrix[i]) row += j;
+            distance += (goal - row);
+            diagonal += matrix[i][matrix.length-(i+1)];
         }
-        //Columna
-        for (int j = 0; j < stat.n; j++) {
-            for (int i = 0; i < stat.n * stat.n; i += stat.n) {
-                amount = amount + stat.a[i + j];
-            }
-            if (result != amount) {
-                h += 1;
-            }
-            amount = 0;
-        }
-        //Diagonal
-        for (int i = 0; i < stat.n * stat.n; i += stat.n) {
-            amount = amount + stat.a[i + x];
-            x++;
-        }
-        if (result != amount) {
-            h += 1;
-        }
-        amount = 0;
-        x--;
-        for (int i = 0; i < stat.n * stat.n; i += stat.n) {
-            amount = amount + stat.a[i + x];
-            x--;
-        }
-        if (result != amount) {
-            h += 1;
-        }
-        return h;
+
+        return distance+(goal-diagonal);
     }
 }
