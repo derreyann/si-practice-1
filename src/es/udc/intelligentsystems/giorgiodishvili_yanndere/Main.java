@@ -21,7 +21,8 @@ public class Main {
 //        int[][] ints = {{4, 9, 2}, {3, 5, 8}, {0, 1, 0}};
 //        int[][] ints = {{2, 0, 0}, {0, 0, 0}, {0, 0, 0}};
 //        int[][] ints = {{2, 0, 0}, {0, 0, 0}, {0, 0, 0}};
-        int[][] ints = {{2, 0, 0, 0}, {0, 0, 0, 0}, {0, 1, 0, 0}};
+//        int[][] ints = {{2, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 1, 0, 0}};
+        int[][] ints = {{2, 0, 0, 9}, {0, 0, 0, 3}, {11, 0, 0, 0}, {0, 1, 0, 0}};
         MagicSquareProblem.MagicSquareState initialState = new MagicSquareProblem.MagicSquareState(
                 new Board(ints)
         );

@@ -30,6 +30,10 @@ public class Board {
         return possibleValues;
     }
 
+    /**
+     * it just gets all the values which are possible to be in the array and is not in the matrix yet
+     * @return Stack with all the possible values (List impl does not really matter)
+     */
     public Stack<Integer> recalculatePossibleValues() {
         possibleValues.clear();
         for (int i = 1; i <= boardLastNumber; i++) {

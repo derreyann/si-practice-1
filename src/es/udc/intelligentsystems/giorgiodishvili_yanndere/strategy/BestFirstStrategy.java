@@ -44,21 +44,28 @@ public class BestFirstStrategy implements InformedSearchStrategy {
 
             System.out.println(" - " + currentState + " is not a goal");
             explored.add(currentState);
+            // getting the successors
             List<Node> sons = successors(searching, p, h);
             created += sons.size();
             for (Node n : sons) {
                 State sc = n.getState();
                 n.setCost(searching.getCost() + 1);
                 n.setF((int) (n.getCost() + h.evaluate(n.getState())));
-                System.out.println(" - RESULT(" + currentState + "," + n.getAction() + ")=" + "sc");
+                System.out.println(" - RESULT(" + currentState + "," + n.getAction() + ")=" + sc);
+                // check explored
                 if (!explored.contains(sc)) {
+                    // check if state is not in frontier
                     boolean b = frontier.stream().noneMatch(c -> c.getState() == sc);
+                    // if it is not add to frontier and continue onto the next node
                     if (b) {
                         frontier.add(n);
                         continue;
                     }
+                    // if it is in the front get the node which is equal to it in whole
                     Optional<Node> nodeStream = frontier.stream().filter(n::equals).findFirst();
+                    // check if there is any nodes equal
                     if (nodeStream.isPresent()) {
+                        // check if f is less than the cost
                         if (n.getF() < nodeStream.get().getCost()) {
                             frontier.remove(n);
                             frontier.add(n);

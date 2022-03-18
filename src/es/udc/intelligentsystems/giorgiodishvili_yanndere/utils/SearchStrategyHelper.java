@@ -9,6 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SearchStrategyHelper {
+
+    /**
+     *  iterates over solution node parent
+     * @param solutionNode which was found
+     * @return parentList
+     */
     public static Node[] reconstruct_sol(Node solutionNode) {
 
         ArrayList<Node> nodeList = new ArrayList<>();
@@ -21,6 +27,13 @@ public class SearchStrategyHelper {
         return nodeList.toArray(new Node[0]);
     }
 
+    /**
+     *
+     * @param node cuurent node
+     * @param p the problem which we trying to solve
+     * @param h heuristic approach class, which calculates the cost
+     * @return List of Nodes which have all the actions applied to them
+     */
     public static List<Node> successors(Node node, SearchProblem p, Heuristic h) {
         List<Node> successors = new ArrayList<>();
         Action[] availableActions = p.actions(node.getState());
@@ -31,6 +44,12 @@ public class SearchStrategyHelper {
         return successors;
     }
 
+    /**
+     *
+     * @param node current node
+     * @param p the problem which we trying to solve
+     * @return List of Nodes which have all the actions applied to them
+     */
     public static List<Node> successors(Node node, SearchProblem p) {
         List<Node> successors = new ArrayList<>();
         Action[] availableActions = p.actions(node.getState());

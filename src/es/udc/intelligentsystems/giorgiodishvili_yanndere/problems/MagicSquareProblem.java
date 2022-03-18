@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class MagicSquareProblem extends SearchProblem {
+
     public static class MagicSquareState extends State {
 
         Board board;
@@ -28,7 +29,6 @@ public class MagicSquareProblem extends SearchProblem {
         @Override
         public String toString() {
             return "{ " + Arrays.deepToString(board.getBoard()) + " }";
-
         }
 
 
@@ -44,7 +44,7 @@ public class MagicSquareProblem extends SearchProblem {
 
         @Override
         public int hashCode() {
-            return board.hashCode() ;
+            return board.hashCode();
         }
     }
 
@@ -69,7 +69,9 @@ public class MagicSquareProblem extends SearchProblem {
         @Override
         public boolean isApplicable(State st) {
             MagicSquareProblem.MagicSquareState vcSt = (MagicSquareProblem.MagicSquareState) st;
+            // just workaround :D :D :D but this state should never happen anyway and just writing try catch is not resource exhoustive...
             try {
+                // checks if the cell is empty
                 if (vcSt.board.getBoard()[y][x] == 0)
                     return true;
             } catch (IndexOutOfBoundsException x) {
@@ -84,6 +86,9 @@ public class MagicSquareProblem extends SearchProblem {
             if (!isApplicable(vcSt)) {
                 throw new IllegalStateException("Action is not applicable " + vcSt + "x= " + x + "y=" + y);
             }
+            // just a workaround for because of jave referece/int pooling
+            // int[][] newBoard = vcSt.board.getBoard();
+            // newBoard[y][x] = number;
 
             int[][] newBoard = new int[vcSt.board.getBoard().length][vcSt.board.getBoard().length];
             newBoard[y][x] = number;
