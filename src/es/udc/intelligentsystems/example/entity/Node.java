@@ -3,27 +3,37 @@ package es.udc.intelligentsystems.example.entity;
 import es.udc.intelligentsystems.Action;
 import es.udc.intelligentsystems.State;
 
-import java.util.UUID;
 
-public class Node {
+public class Node implements Comparable<Node> {
     private Action action;
     private Node parent;
     private State state;
+    private int depth = 0;
+    private int cost = 0;
 
-    public Node() {
-
+    public Node(Action action, Node parent, State state, int cost) {
+        this.action = action;
+        this.parent = parent;
+        this.state = state;
+        this.cost = cost;
+        if (parent != null) depth = parent.getDepth() + 1;
     }
 
     public Node(Action action, Node parent, State state) {
         this.action = action;
         this.parent = parent;
         this.state = state;
+        if (parent != null) depth = parent.getDepth() + 1;
     }
 
     public Node(State state) {
         this.action = null;
         this.parent = null;
         this.state = state;
+    }
+
+    public int getDepth() {
+        return depth;
     }
 
     public Action getAction() {
@@ -50,6 +60,18 @@ public class Node {
         this.state = state;
     }
 
+    public void setDepth(int depth) {
+        this.depth = depth;
+    }
+
+    public int getCost() {
+        return cost;
+    }
+
+    public void setCost(int cost) {
+        this.cost = cost;
+    }
+
     @Override
     public String toString() {
         return "\n" +
@@ -57,5 +79,10 @@ public class Node {
                 ", parent=" + parent +
                 ", state=" + state +
                 "}\n";
+    }
+
+    @Override
+    public int compareTo(Node o) {
+        return this.getCost() - o.getCost();
     }
 }
