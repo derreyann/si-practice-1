@@ -18,6 +18,10 @@ public class Board {
         recalculatePossibleValues();
     }
 
+    public int getBoardLastNumber() {
+        return boardLastNumber;
+    }
+
     public long getSum() {
         return sum;
     }
