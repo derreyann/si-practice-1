@@ -65,7 +65,7 @@ public class BestFirstStrategy implements InformedSearchStrategy {
                         }
                     }
                 }
-                System.out.println("" + n.getState() + "  " + n.getF());
+                System.out.println("STATE " + n.getState() + "  " + n.getF());
             }
         }
         throw new IllegalStateException("No Solution Found");

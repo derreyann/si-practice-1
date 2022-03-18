@@ -2,23 +2,47 @@ package es.udc.intelligentsystems.giorgiodishvili_yanndere.heuristics;
 
 import es.udc.intelligentsystems.Heuristic;
 import es.udc.intelligentsystems.State;
+import es.udc.intelligentsystems.giorgiodishvili_yanndere.entity.Board;
 import es.udc.intelligentsystems.giorgiodishvili_yanndere.problems.MagicSquareProblem;
 
 public class MagicSquareHeuristics extends Heuristic {
     @Override
     public float evaluate(State e) {
 
-        int row, distance=0, diagonal=0;
-        int[][] matrix = ((MagicSquareProblem.MagicSquareState) e).getBoard().getBoard();
-        int goal=(matrix.length * ((matrix.length * matrix.length) + 1)) / 2;
+        int row;
+        Board board = ((MagicSquareProblem.MagicSquareState) e).getBoard();
+        int[][] matrix = board.getBoard();
+        long[] rowSum = new long[matrix.length];
+        long[] colSum = new long[matrix.length];
+        long diagonal = 0;
+        long boardSum = 0;
 
-        for(int i=0; i<matrix.length; i++) {
-            row = 0;
-            for(int j : matrix[i]) row += j;
-            distance += (goal - row);
-            diagonal += matrix[i][matrix.length-(i+1)];
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix.length; j++) {
+                rowSum[i] += matrix[i][j];
+                colSum[i] += matrix[j][i];
+            }
         }
 
-        return distance+(goal-diagonal);
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix.length; j++) {
+                if (i == j) {
+                    diagonal = matrix[i][j];
+                }
+            }
+        }
+
+        for (int i = 0; i < matrix.length; i++) {
+            if (rowSum[i] != board.getSum()) {
+                boardSum += rowSum[i];
+            }
+            if (colSum[i] != board.getSum()) {
+                boardSum += colSum[i];
+            }
+        }
+        if (diagonal != board.getSum())
+            boardSum += diagonal;
+
+        return board.getSum() - boardSum;
     }
 }
