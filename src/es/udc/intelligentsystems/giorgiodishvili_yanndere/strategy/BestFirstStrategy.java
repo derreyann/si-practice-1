@@ -23,7 +23,7 @@ public class BestFirstStrategy implements InformedSearchStrategy {
 
         ArrayList<State> explored = new ArrayList<>();
         PriorityQueue<Node> frontier = new PriorityQueue<>();
-        frontier.add(new Node(p.getInitialState()));
+        frontier.add(new Node(null, null, p.getInitialState(), (int) h.evaluate(p.getInitialState())));
 
         System.out.println(" - Starting search...");
 
@@ -32,7 +32,7 @@ public class BestFirstStrategy implements InformedSearchStrategy {
             State currentState = searching.getState();
 
             expanded++;
-            System.out.println(" - Current state changed to " + currentState);
+            System.out.println(" - Current state changed to " + currentState + " cost " + searching.getF());
 
             if (p.isGoal(currentState)) {
                 System.out.println(" - END - " + currentState);
@@ -50,10 +50,10 @@ public class BestFirstStrategy implements InformedSearchStrategy {
                 State sc = n.getState();
                 n.setCost(searching.getCost() + 1);
                 n.setF((int) (n.getCost() + h.evaluate(n.getState())));
-                System.out.println(" - RESULT(" + sc + "," + n.getAction() + ")=" + sc);
+                System.out.println(" - RESULT(" + currentState + "," + n.getAction() + ")=" + "sc");
                 if (!explored.contains(sc)) {
                     boolean b = frontier.stream().noneMatch(c -> c.getState() == sc);
-                    if (!b) {
+                    if (b) {
                         frontier.add(n);
                         continue;
                     }
