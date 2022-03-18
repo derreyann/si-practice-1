@@ -40,8 +40,8 @@ public class BreadthFirstStrategy implements SearchStrategy {
             // add this state to explored list
             explored.add(state);
             if (p.isGoal(state)) {
-                System.out.println("\nNumber of nodes created: " + created);
-                System.out.println("\nNumber of nodes expanded: " + expanded);
+                System.out.println("\n Number of nodes created: " + created);
+                System.out.println("\n Number of nodes expanded: " + expanded);
                 return reconstruct_sol(node);
             }
             // get all available checks
@@ -50,6 +50,8 @@ public class BreadthFirstStrategy implements SearchStrategy {
             for (Node n : availableActions) {
                 // goal check
                 if (p.isGoal(n.getState())) {
+                    System.out.println("\n Number of nodes created: " + created);
+                    System.out.println("\n Number of nodes expanded: " + expanded);
                     return reconstruct_sol(node);
                 }
 
@@ -67,7 +69,6 @@ public class BreadthFirstStrategy implements SearchStrategy {
                     System.out.println((i++) + " - " + n.getState() + " already explored");
                 }
             }
-            System.out.println("Created Node after each iteration: " + created);
         }
         System.out.println("\nNumber of nodes created: " + created);
         System.out.println("\nNumber of nodes expanded: " + expanded);

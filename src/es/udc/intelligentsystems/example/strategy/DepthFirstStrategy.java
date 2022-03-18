@@ -27,16 +27,15 @@ public class DepthFirstStrategy implements SearchStrategy {
         f.push(initialNode);
 
         int i = 1;
-        int createdNodes = 1;
         // check if frontier is empty
         while (!f.isEmpty()) {
             expanded++;
             // last element of frontier
-            Node node = f.peek();
+            Node node = f.pop();
             // last elements state
             State state = node.getState();
             // goal check
-            if (p.isGoal(node.getState())) {
+            if (p.isGoal(state)) {
                 System.out.println("\nNumber of nodes created: " + created);
                 System.out.println("\nNumber of nodes expanded: " + expanded);
                 return reconstruct_sol(node);
@@ -48,7 +47,6 @@ public class DepthFirstStrategy implements SearchStrategy {
             created += availableActions.size();
             for (Node n : availableActions) {
                 // created node amount
-                createdNodes++;
                 // state not already explored
                 if (!explored.contains(n.getState())) {
                     // state not already in frontire
@@ -63,7 +61,6 @@ public class DepthFirstStrategy implements SearchStrategy {
                     System.out.println((i++) + " - " + n.getState() + " already explored");
                 }
             }
-            System.out.println("Created Node after each iteration: " + createdNodes);
         }
         System.out.println("\nNumber of nodes created: " + created);
         System.out.println("\nNumber of nodes expanded: " + expanded);
