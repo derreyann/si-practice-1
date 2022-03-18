@@ -17,6 +17,14 @@ public class MagicSquareProblem extends SearchProblem {
             this.board = board;
         }
 
+        public Board getBoard() {
+            return board;
+        }
+
+        public void setBoard(Board board) {
+            this.board = board;
+        }
+
         @Override
         public String toString() {
             return "{ " + Arrays.deepToString(board.getBoard()) + " }";

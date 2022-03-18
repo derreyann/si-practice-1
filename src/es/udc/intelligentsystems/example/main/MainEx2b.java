@@ -1,9 +1,13 @@
 package es.udc.intelligentsystems.example.main;
 
+import es.udc.intelligentsystems.Heuristic;
+import es.udc.intelligentsystems.InformedSearchStrategy;
 import es.udc.intelligentsystems.SearchProblem;
 import es.udc.intelligentsystems.SearchStrategy;
 import es.udc.intelligentsystems.example.entity.Board;
+import es.udc.intelligentsystems.example.heuristics.MagicSquareHeuristics;
 import es.udc.intelligentsystems.example.problems.MagicSquareProblem;
+import es.udc.intelligentsystems.example.strategy.BestFirstStrategy;
 import es.udc.intelligentsystems.example.strategy.BreadthFirstStrategy;
 import es.udc.intelligentsystems.example.strategy.DepthFirstStrategy;
 

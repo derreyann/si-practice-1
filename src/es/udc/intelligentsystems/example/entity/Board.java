@@ -17,6 +17,10 @@ public class Board {
         recalculatePossibleValues();
     }
 
+    public long getSum() {
+        return sum;
+    }
+
     public int[][] getBoard() {
         return this.board;
     }
