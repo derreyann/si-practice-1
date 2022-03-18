@@ -23,15 +23,14 @@ public class BestFirstStrategy implements InformedSearchStrategy {
 
         ArrayList<State> explored = new ArrayList<>();
         PriorityQueue<Node> frontier = new PriorityQueue<>();
-        State currentState = p.getInitialState();
-        Node searching = new Node(currentState);
-        frontier.add(searching);
+        frontier.add(new Node(p.getInitialState()));
 
         System.out.println(" - Starting search...");
 
         while (!frontier.isEmpty()) {
-            searching = frontier.poll();
-            currentState = searching.getState();
+            Node searching = frontier.poll();
+            State currentState = searching.getState();
+
             expanded++;
             System.out.println(" - Current state changed to " + currentState);
 
@@ -42,23 +41,34 @@ public class BestFirstStrategy implements InformedSearchStrategy {
                 return currentState;
             }
 
+
             System.out.println(" - " + currentState + " is not a goal");
             explored.add(currentState);
             List<Node> sons = successors(searching, p, h);
             created += sons.size();
             for (Node n : sons) {
                 State sc = n.getState();
+                n.setCost(searching.getCost() + 1);
+                n.setCost((int) (n.getCost() + h.evaluate(n.getState())));
                 System.out.println(" - RESULT(" + currentState + "," + n.getAction() + ")=" + sc);
-                if (explored.contains(sc)) {
-                    System.out.println(" - " + sc + " already explored");
-                    continue;
+                if (!explored.contains(sc)) {
+                    boolean b = frontier.stream().noneMatch(c -> c.getState() == sc);
+                    if (!b) {
+                        frontier.add(n);
+                        continue;
+                    }
+                    Optional<Node> nodeStream = frontier.stream().filter(n::equals).findFirst();
+                    if (nodeStream.isPresent()) {
+                        if (n.getF() < nodeStream.get().getCost()) {
+                            frontier.remove(n);
+                            frontier.add(n);
+                        }
+                    }
                 }
-                System.out.println(" - " + sc + " NOT explored");
-                if (!frontier.contains(n)) frontier.add(n);
+                System.out.println("" + searching.getState() + "  " + searching.getF());
             }
+            explored.add(searching.getState());
         }
-
-        throw new Exception("No solution could be found");
+        throw new IllegalStateException("No Solution Found");
     }
-
 }

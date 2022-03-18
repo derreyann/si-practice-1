@@ -31,6 +31,7 @@ public class MagicSquareProblem extends SearchProblem {
 
         }
 
+
         @Override
         public boolean equals(Object obj) {
             if (this == obj) return true;

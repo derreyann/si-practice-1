@@ -10,13 +10,22 @@ public class Node implements Comparable<Node> {
     private State state;
     private int depth = 0;
     private int cost = 0;
+    private int f = 0;
 
     public Node(Action action, Node parent, State state, int cost) {
         this.action = action;
         this.parent = parent;
         this.state = state;
         this.cost = cost;
+        this.f = cost;
         if (parent != null) depth = parent.getDepth() + 1;
+    }
+public int getF() {
+        return f;
+    }
+
+    public void setF(int f) {
+        this.f = f;
     }
 
     public Node(Action action, Node parent, State state) {
